@@ -20,7 +20,9 @@ Como pode ser observado no gráfico abaixo, a Dogecoin apresenta uma sazonalidad
 
 # Análise do dataset
 
-Com o dataset definido, foi começado a análise dos dados em si para seu tratamento e eventual utilização para criação de um modelo de IA. Porém, como observado no heatmap abaixo, há uma grande relação entre quase todas as features, menos o volume venvido. Sendo assim, foram criados mais dados no dataset como `TODO MÁRIO PELO AMOR LEMBRA DE MUDAR`. Com o novo dataset criado, foram criados duas IA's, uma com o novo dataset e uma com o dataset puro para poderem ser comparadas e investigar se o tratamento de dados está na direção correta ou não. 
+Com o dataset, foi começado a análise dos dados em si para seu tratamento e eventual utilização para criação de um modelo de IA. Porém, como observado no heatmap abaixo, há uma grande relação entre quase todas as features, menos o volume venvido. Sendo assim, foram criados mais dados no dataset como `TODO MÁRIO PELO AMOR LEMBRA DE MUDAR`. Com o novo dataset criado, foram criados duas IA's, uma com o novo dataset e uma com o dataset puro para poderem ser comparadas e investigar se o tratamento de dados está na direção correta ou não. 
+
+Além disso, foram dropadas duas colunas: `Dividends` e `Stock Splits`, já que nenhuma das duas apresentava algum valor, sendo percorridos valores numéricos 0 por todo o dataset.
 
 ![Heatmap](../static/heatmap.png)
 
