@@ -14,6 +14,12 @@ Este projeto foi desenvolvido com o objetivo de criar um sistema que auxilie na 
 
 **TODO**
 
+## Ordem da documentação
+
+1. `analise_inicial.md`
+
+2. `modelo_inicial.md`
+
 ## Histórico de Patches
 
 **TODO**
