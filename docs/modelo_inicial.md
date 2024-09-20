@@ -67,3 +67,5 @@ O RMSE é simplesmente a raiz quadrada do MSE, e traz os erros de volta à escal
 O R² mede a proporção da variação dos dados que é explicada pelo modelo. Um valor de 0.879 significa que aproximadamente 87,9% da variação nos valores de preço é explicada pelo modelo de previsão. Um R² próximo de 1 é ideal, pois indica que o modelo está capturando a maior parte da variação nos dados. Com um valor de 0.879, o modelo está se saindo muito bem ao capturar as tendências e padrões subjacentes no conjunto de dados.
 
 ## Conclusão
+
+0 primeiro modelo se desempenhou bem, a pesar de ser um modelo simples e só considerar duas colunas. Será feito novos treinamentos de modelo para considerar mais colunas e outros tratamentos de dados, a fim de aumentar e maximixar a eficiência da IA.
