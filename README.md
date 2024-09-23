@@ -16,6 +16,8 @@ Este projeto foi desenvolvido com o objetivo de criar um sistema que auxilie na 
 
 ## Ordem da documentação
 
+### Data exploration
+
 1. `analise_inicial.md`
 
 2. `modelo_inicial.md`
@@ -24,6 +26,10 @@ Este projeto foi desenvolvido com o objetivo de criar um sistema que auxilie na 
 
 4. `modelo_arima_lstm.md`
 
+### Backend
+
+1. `backend_V0.1.0`
+
 ## Histórico de Patches
 
-**TODO**
+V0.1.0 - AI creation, documentation
