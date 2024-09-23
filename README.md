@@ -22,6 +22,8 @@ Este projeto foi desenvolvido com o objetivo de criar um sistema que auxilie na 
 
 3. `modelo_multi.md`
 
+4. `modelo_arima_lstm.md`
+
 ## Histórico de Patches
 
 **TODO**
