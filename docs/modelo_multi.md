@@ -76,6 +76,6 @@ Com isso, realizamos uma validação cruzada de **5 folds**. Abaixo, estão as m
 4. **R-quadrado (R²):**
    - O **R²** médio foi de **0.9800543964523818**, o que significa que, em média, o modelo foi capaz de explicar **98%** da variação nos dados de preço. Isso indica que o modelo tem um excelente desempenho em capturar as tendências dos dados.
 
-### Conclusão:
+## Conclusão:
 
 A **validação cruzada** reduziu significativamente a preocupação com **overfitting**, uma vez que o modelo apresentou resultados consistentes em diferentes divisões dos dados, indicando que ele consegue generalizar bem, mesmo em diferentes partes da série temporal. As métricas, como **MAE**, **MSE**, **RMSE** e **R²**, continuaram muito boas, sem apresentar uma grande disparidade entre os folds, o que sugere que o modelo é robusto e eficaz para fazer previsões sobre o preço de criptomoedas.
