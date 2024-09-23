@@ -20,6 +20,8 @@ Este projeto foi desenvolvido com o objetivo de criar um sistema que auxilie na 
 
 2. `modelo_inicial.md`
 
+3. `modelo_multi.md`
+
 ## Histórico de Patches
 
 **TODO**
