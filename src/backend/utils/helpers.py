@@ -11,6 +11,7 @@ from models.database import get_db
 from prophet import Prophet
 import joblib
 
+collection_url = "http://pocketbase:8090/api/collections/models/records"
 
 def analyze_predictions(predictions: pd.DataFrame) -> dict:
     yhat_values = predictions['yhat'].values
@@ -36,8 +37,8 @@ def generate_uuidv7():
     return uuidv7
 
 def load_prophet_model() -> Prophet:
-    # Static URL where the Prophet model is stored
-    model_url = "http://pocketbase:8090/api/files/4forqd5s2ez9ydw/wwpjocvw1obr90r/modelo_0cJQGhMAmk.joblib"
+    # Get the latest model URL from Pocketbase
+    model_url = get_model_url()
     
     # Generate a unique temporary file name for saving the downloaded model
     unique_filename = f"temp_model_{generate_uuidv7()}.joblib"
@@ -53,7 +54,7 @@ def load_prophet_model() -> Prophet:
     # Optionally, remove the file after loading the model to clean up the local filesystem
     os.remove(unique_filename)
     
-    print("Prophet model loaded successfully from URL.")
+    print("Prophet model loaded successfully from Pocketbase URL.")
     
     return model
 
@@ -61,12 +62,18 @@ def load_prophet_model() -> Prophet:
 
 def get_model_url(ID_modelo: str, db: Session = Depends(get_db)) -> str:
     # Query the Model table to find the record with the given ID_modelo
-    record = db.query(Model).filter(Model.ID_modelo == ID_modelo).first()
 
-    if not record:
-        raise HTTPException(status_code=404, detail="Model not found")
-
-    # Accessing the actual string value
-    url_modelo = record.URL_modelo
-
-    return url_modelo
+    # Request to fetch the latest record (assuming the collection stores models)
+    try:
+        response = requests.get(collection_url, params={"sort": "-created", "perPage": 1})
+        response.raise_for_status()
+        
+        # Parse the response to get the URL of the latest model
+        latest_record = response.json()["items"][0]
+        model_url = latest_record["url"]  # Assuming the file field is named "url"
+        
+        print(f"Latest model URL fetched: {model_url}")
+        return model_url
+    
+    except requests.RequestException as e:
+        raise Exception(f"Error fetching the latest model URL: {e}")

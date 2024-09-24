@@ -50,7 +50,7 @@ def mock_data(table: str, db: Session = Depends(get_db), num_records: int = 10):
 
 async def predict(db: Session = Depends(get_db)) -> dict:
     try:
-        # Load the Prophet model from the static URL
+        # Load the latest Prophet model from Pocketbase
         model = load_prophet_model()
         
         # Create a dataframe with future dates (10 days ahead)

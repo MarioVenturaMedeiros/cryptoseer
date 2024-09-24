@@ -26,6 +26,8 @@ Este projeto foi desenvolvido com o objetivo de criar um sistema que auxilie na 
 
 4. `modelo_arima_lstm.md`
 
+5. `escolha_modelo.md`
+
 ### Backend
 
 1. `backend_V0.1.0`
