@@ -15,7 +15,7 @@ services:
   #     - app-tier
 
   pocketbase:
-    build: ./backend/pocketbase  # Path to the Dockerfile for PocketBase
+    build: ./pocketbase # Path to the Dockerfile for PocketBase
     container_name: cryptoseer-pocketbase
     working_dir: /app
     ports:
@@ -51,7 +51,7 @@ services:
       TF_ENABLE_ONEDNN_OPTS: 0
       POCKETBASE_URL: "http://pocketbase:8090"
     ports:
-      - "8001:8000"
+      - "8000:8000"
     depends_on:
       - postgres
       - pocketbase

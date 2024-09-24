@@ -4,33 +4,16 @@ import numpy as np
 from sqlalchemy.orm import Session
 from models.predictionModel import Prediction, Features, Model, Values
 from models.database import get_db
-from utils.helpers import analyze_predictions, generate_uuidv7, load_prophet_model, get_model_url
+from utils.helpers import analyze_predictions, generate_uuidv7, load_prophet_model, fetch_latest_dogecoin_data, authenticate_pocketbase
 from typing import List
 import requests
+import os
+import yfinance as yf
 
 # PocketBase configuration
-POCKETBASE_URL = "http://pocketbase:8090"
 
-
-def authenticate_pocketbase():
-    try: 
-        auth_data = {
-            "identity": "teste@gmail.com",
-            "password": "testeteste"
-        }
-        response = requests.post(f"{POCKETBASE_URL}/api/admins/auth-with-password", json=auth_data)
-
-        if response.status_code == 200:
-            print("Authenticated successfully!")
-            return response.json()["token"]
-        else:
-            raise HTTPException(status_code=response.status_code, detail="Authentication failed.")
-    except Exception as e:
-        print(f"Unexpected error: {e}")
-        raise HTTPException(status_code=500, detail=f"An error occurred: {str(e)}")
-
-# Initialize PocketBase authentication (you can save this token for further requests)
 pocketbase_token = authenticate_pocketbase()
+# Initialize PocketBase authentication (you can save this token for further requests)
 
 def root():
     return {"message": "Hello World"}
@@ -48,30 +31,50 @@ def mock_data(table: str, db: Session = Depends(get_db), num_records: int = 10):
 
     return {"message": f"{num_records} records inserted successfully."}
 
-async def predict(db: Session = Depends(get_db)) -> dict:
+def predict(db: Session = Depends(get_db)) -> dict:
     try:
         # Load the latest Prophet model from Pocketbase
         model = load_prophet_model()
-        
+
+        print("passei 2")
+
+        # Fetch and format the latest available Dogecoin data from Yfinance
+        latest_data = fetch_latest_dogecoin_data()
+
         # Create a dataframe with future dates (10 days ahead)
         future = model.make_future_dataframe(periods=10)
-        
-        # Predict the next 10 days
+        print(f"passei 3 - Future dataframe created:\n{future.head()}")  # Check the future dataframe
+
+        # Add the regressors (Open, High, Low, Volume) from the latest Dogecoin data
+        future['Open'] = latest_data['Open']
+        future['High'] = latest_data['High']
+        future['Low'] = latest_data['Low']
+        future['Volume'] = latest_data['Volume']
+
+        print(f"Future dataframe with added regressors:\n{future.head()}")
+
+        # Predict the next 10 days using Prophet
         forecast = model.predict(future)
-        
+        print(f"passei 4 - Forecast generated:\n{forecast[['ds', 'yhat', 'yhat_lower', 'yhat_upper']].head()}")
+
         # Select only the last 10 days from the forecast
         future_forecast = forecast[['ds', 'yhat']].tail(10)
 
+        # Convert 'ds' from numpy.datetime64 to Python datetime for serialization
+        future_forecast['ds'] = future_forecast['ds'].apply(lambda x: x.to_pydatetime() if isinstance(x, (pd.Timestamp, np.datetime64)) else x)
+
         # Analyze the forecasted data (find highest and lowest predicted values)
         analysis = analyze_predictions(future_forecast)
+
+        print("passei 5")
         
         # Return the forecasted values and the analysis (lowest and highest value)
         return {
             "predicted_values": future_forecast.to_dict(orient="records"),
             "lowest_value": analysis["lowest_value"],
             "highest_value": analysis["highest_value"],
-            "lowest_day": analysis["lowest_day"],
-            "highest_day": analysis["highest_day"]
+            # "lowest_day": analysis["lowest_day"],
+            # "highest_day": analysis["highest_day"]
         }
     
     except Exception as e:
