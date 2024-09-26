@@ -2,7 +2,6 @@ from fastapi import UploadFile, Depends, HTTPException
 import pandas as pd
 import numpy as np
 from sqlalchemy.orm import Session
-from models.predictionModel import Prediction, Features, Model, Values
 from models.database import get_db
 from utils.helpers import analyze_predictions, generate_uuidv7, load_prophet_model, fetch_latest_dogecoin_data, authenticate_pocketbase
 from typing import List

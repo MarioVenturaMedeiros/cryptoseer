@@ -5,12 +5,13 @@ import pandas as pd
 import yfinance as yf
 import os
 import requests
-from models.predictionModel import Model
+from models.predictionModel import Log
 from sqlalchemy.orm import Session
 from fastapi import Depends, HTTPException
 from models.database import get_db
 from prophet import Prophet
 import joblib
+from fastapi import Request
 
 collection_url = "http://pocketbase:8090/api/collections/{collection_name}/records"
 
@@ -145,3 +146,23 @@ def fetch_latest_dogecoin_data():
     }
 
     return latest_data
+
+async def log_requests_middleware(request: Request, call_next):
+    # Manually create a database session (as middleware can't use Depends)
+    db = next(get_db())
+    
+    try:
+        # Call the next middleware or route handler
+        response = await call_next(request)
+
+        # Log route and status code
+        log_entry = Log(
+            route=request.url.path,
+            status=response.status_code
+        )
+        db.add(log_entry)
+        db.commit()
+
+        return response
+    finally:
+        db.close()

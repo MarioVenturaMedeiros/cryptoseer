@@ -10,6 +10,7 @@ import numpy as np
 from sklearn.model_selection import TimeSeriesSplit
 import joblib
 import tempfile
+from models.predictionModel import Log
 
 # PocketBase configuration
 pocketbase_token = authenticate_pocketbase()
