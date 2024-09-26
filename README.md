@@ -28,10 +28,20 @@ Este projeto foi desenvolvido com o objetivo de criar um sistema que auxilie na 
 
 5. `escolha_modelo.md`
 
+### Pocketbase
+
+1. `pocketbase.md`
+
 ### Backend
 
-1. `backend_V0.1.0`
+1. `backend_AI.md`
+
+3. `Logs.md`
+
+2. `backend_dashboard.md`
 
 ## Histórico de Patches
 
 V0.1.0 - AI creation, documentation
+
+V0.2.0 - AI comunication, retraining and logs
