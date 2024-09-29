@@ -1,15 +1,21 @@
 from fastapi import FastAPI
 from models.database import engine, Base
 from routes import predictionRoutes
-from utils.helpers import log_requests_middleware  # Import the logging middleware
+from fastapi.middleware.cors import CORSMiddleware
 
 # Criação da tabela no banco de dados
 Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
 
-# Register the logging middleware
-app.middleware("http")(log_requests_middleware)
+# Allow all origins
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # This allows all origins
+    allow_credentials=True,
+    allow_methods=["*"],  # This allows all HTTP methods (GET, POST, PUT, etc.)
+    allow_headers=["*"],  # This allows all headers
+)
 
 # Registro das rotas
 app.include_router(predictionRoutes.router)

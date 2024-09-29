@@ -39,3 +39,4 @@ numpy<2.0
 pyarrow
 yfinance
 scikit-learn
+statsmodels
