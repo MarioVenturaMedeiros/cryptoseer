@@ -23,6 +23,8 @@ sudo systemctl start docker
 
 sudo usermod -aG docker $USER
 
+newgrp docker
+
 cd src/
 
 docker compose up --build
@@ -69,3 +71,5 @@ V0.3.0 - Dashboard backend
 V0.4.0 - Frontend
 
 V1.0.0 - Integration
+
+V1.0.1 - bug fixes
