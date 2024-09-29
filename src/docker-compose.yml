@@ -1,18 +1,16 @@
 services:
-  # frontend:
-  #   build: ./frontend
-  #   image: src/frontend
-  #   restart: unless-stopped
-  #   environment:
-  #     NEXT_PUBLIC_BACKEND_URL: "http://backend:8000"
-  #   ports:
-  #     - "5173:4173"
-  #   depends_on:
-  #     - backend
-  #   container_name: cryptoseer-frontend
-  #   command: npm run preview -- --host 0.0.0.0
-  #   networks:
-  #     - app-tier
+  frontend:
+    build:
+      context: ./frontend  # Path to the Dockerfile for the React frontend
+      dockerfile: Dockerfile  # Ensure this is the name of your Dockerfile
+    container_name: cryptoseer-frontend
+    environment:
+      NEXT_PUBLIC_BACKEND_URL: "http://backend:8000"
+    ports:
+      - "3000:3000"  # Map the container port 3000 to host port 3000
+    networks:
+      - app-tier
+    restart: unless-stopped
 
   pocketbase:
     build: ./pocketbase # Path to the Dockerfile for PocketBase
