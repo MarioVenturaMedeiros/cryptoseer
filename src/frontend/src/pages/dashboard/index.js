@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Line } from 'react-chartjs-2';
 import 'chart.js/auto';
+import Header from '../../components/header';
 
 const DogecoinGraph = () => {
     const [observedImage, setObservedImage] = useState('');
@@ -50,6 +51,7 @@ const DogecoinGraph = () => {
     };
 
     return (
+        <>        <Header />
         <div>
             <h1>Dogecoin Price Decomposition (2 Years)</h1>
             {observedImage && <img src={`data:image/png;base64,${observedImage}`} alt="Observed" />}
@@ -62,7 +64,7 @@ const DogecoinGraph = () => {
 
             <h1>Dogecoin Price (2 Years)</h1>
             <Line data={chartData2y} />
-        </div>
+        </div></>
     );
 };
 

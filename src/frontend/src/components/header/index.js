@@ -17,7 +17,7 @@ function Header() {
   return (
     <Menu>
       {options.map((item, index) => (
-        <Link to={item.route}>
+        <Link key={index + 1} to={item.route}>
           <MenuOption>{item.label}</MenuOption>
         </Link>
       ))}
