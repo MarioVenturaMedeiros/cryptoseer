@@ -21,6 +21,8 @@ na janela do teminal, no repositório do projeto, execute os seguintes comandos:
 ```bash
 sudo systemctl start docker
 
+sudo usermod -aG docker $USER
+
 cd src/
 
 docker compose up --build
