@@ -12,7 +12,19 @@ Este projeto foi desenvolvido com o objetivo de criar um sistema que auxilie na 
 
 ## Como Executar
 
-**TODO**
+Entre [nesse link](https://github.com/MarioVenturaMedeiros/cryptoseer) e baixe a versão ZIP do projeto.
+
+Descompacte o arquivo ZIP
+
+na janela do teminal, no repositório do projeto, execute os seguintes comandos:
+
+```bash
+sudo systemctl start docker
+
+cd src/
+
+docker compose up --build
+```
 
 ## Ordem da documentação
 
@@ -40,8 +52,18 @@ Este projeto foi desenvolvido com o objetivo de criar um sistema que auxilie na 
 
 2. `backend_dashboard.md`
 
+## Docker
+
+1. `docker.md`
+
 ## Histórico de Patches
 
 V0.1.0 - AI creation, documentation
 
 V0.2.0 - AI comunication, retraining and logs
+
+V0.3.0 - Dashboard backend
+
+V0.4.0 - Frontend
+
+V1.0.0 - Integration
